@@ -93,7 +93,7 @@ app.get('/location', async (req, res) => {
   res.send(response);
 });
 
-app.post('/', async (req, res) => {
+app.get('/update', async (req, res) => {
   let response;
   try {
     response = await vehicle.status({refresh: true});
