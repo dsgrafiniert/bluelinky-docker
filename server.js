@@ -66,9 +66,37 @@ app.post('/lock', async (req, res) => {
 });
 
 app.get('/', async (req, res) => {
-  let response;
+  let response, response2;
   try {
     response = await vehicle.status();
+    response2 = await vehicle.location();
+    response.location = response2; 
+  } catch (e) {
+    console.log(e);
+    response = {
+      error: e.message
+    };
+  }
+  res.send(response);
+});
+
+app.get('/location', async (req, res) => {
+  let response;
+  try {
+    response = await vehicle.location();
+  } catch (e) {
+    console.log(e);
+    response = {
+      error: e.message
+    };
+  }
+  res.send(response);
+});
+
+app.post('/', async (req, res) => {
+  let response;
+  try {
+    response = await vehicle.status({refresh: true});
   } catch (e) {
     console.log(e);
     response = {
