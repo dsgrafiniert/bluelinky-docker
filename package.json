@@ -1,5 +1,5 @@
 {
-    "name": "bluelinky",
+    "name": "bluelinky-docker",
     "version": "4.1.0",
     "description": "",
     "main": "dist/index.js",
@@ -20,25 +20,19 @@
       "push-receiver": "^2.1.0",
       "tough-cookie": "^3.0.1",
       "url": "^0.11.0",
-      "winston": "^3.2.1"
+      "winston": "^3.2.1",
+      "express": "^4.17.1",
+      "express-winston": "^4.0.4",
+      "http-auth-connect": "^1.0.4",
+      "bluelinky": "^5.2.3" 
     },
     "husky": {
       "hooks": {
         "pre-commit": "npm run lint"
       }
     },
-    "homepage": "https://github.com/Hacksore/bluelinky",
+    "homepage": "https://github.com/dsgrafiniert/bluelinky-docker",
     "devDependencies": {
-      "@babel/core": "^7.8.7",
-      "@babel/preset-env": "^7.8.7",
-      "@babel/preset-typescript": "^7.8.3",
-      "@types/form-data": "^2.2.1",
-      "@types/got": "^9.4.4",
-      "@types/jest": "^25.1.4",
-      "@types/node": "^13.9.1",
-      "@typescript-eslint/eslint-plugin": "^2.21.0",
-      "@typescript-eslint/parser": "^2.21.0",
-      "babel-jest": "^25.1.0",
       "eslint": "^6.8.0",
       "husky": "^4.2.3",
       "inquirer": "^7.0.4",

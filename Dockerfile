@@ -6,11 +6,7 @@ COPY config.json.example /app
 
 # RUN npm install
 
-RUN npm install express 
-RUN npm install http-auth
-RUN npm install http-auth-connect
-RUN npm install bluelinky --force
-# RUN npm install body-parser
+RUN npm install 
 
 # COPY config_eu.json /app/node_modules/bluelinky
 # COPY config.json /app/node_modules/bluelinky
