@@ -6,6 +6,7 @@ const authConnect = require("http-auth-connect");
 const config = require('/config/config.json');
 const winston = require('winston');
 const expressWinston = require('express-winston');
+const winstonLogrotate = require('winston-logrotate');
 
 const digest = auth.digest({
     realm: 'Bluelinky',
