@@ -19,8 +19,8 @@ app.use(bodyParser.json());
 app.use(expressWinston.logger({
       transports: [
         new winston.transports.Console(),
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
-    new winston.transports.File({ filename: 'combined.log' })
+    new winston.transports.Rotate({ file: 'error.log', level: 'error' }),
+    new winston.transports.Rotate({ file: 'combined.log' })
       ],
       format: winston.format.combine(
         winston.format.colorize(),
