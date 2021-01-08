@@ -7,6 +7,8 @@ const config = require('/config/config.json');
 const winston = require('winston');
 const expressWinston = require('express-winston');
 const winstonLogrotate = require('winston-logrotate');
+var Rotate = require('winston-logrotate').Rotate;
+
 
 const digest = auth.digest({
     realm: 'Bluelinky',
@@ -20,8 +22,8 @@ app.use(bodyParser.json());
 app.use(expressWinston.logger({
       transports: [
         new winston.transports.Console(),
-    new winston.transports.Rotate({ file: 'error.log', level: 'error' }),
-    new winston.transports.Rotate({ file: 'combined.log' })
+    new Rotate({ file: 'error.log', level: 'error' }),
+    new Rotate({ file: 'combined.log' })
       ],
       format: winston.format.combine(
         winston.format.colorize(),
