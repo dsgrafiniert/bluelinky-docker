@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ dev/* ]
   pull_request:
     branches: [ master ]
 
@@ -27,12 +27,6 @@ jobs:
         images: dschoen/bluelinky-docker
     - uses: docker/setup-buildx-action@v1
     -
-      name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    -
       name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
@@ -40,6 +34,6 @@ jobs:
         context: .
         file: ./Dockerfile
         pull: true
-        push: true
+        push: false
         tags: ${{ steps.docker_meta.outputs.tags }}
         labels: ${{ steps.docker_meta.outputs.labels }}
