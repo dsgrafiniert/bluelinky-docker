@@ -1,10 +1,12 @@
 FROM node:current-alpine
-WORKDIR /app
-COPY package.json /app
-COPY server.js /app
-COPY config.json.example /app
+
+WORKDIR /usr/src/app
+
+COPY package.json ./
 
 RUN npm install 
+COPY config.json.example ./
+COPY server.js ./
 
 EXPOSE 8080
 CMD [ "node", "server.js" ]
