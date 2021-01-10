@@ -8,7 +8,13 @@ const winston = require('winston');
 const expressWinston = require('express-winston');
 const winstonLogrotate = require('winston-logrotate');
 var Rotate = require('winston-logrotate').Rotate;
+import apicache from 'apicache'
 
+let cache = apicache.middleware
+
+const onlyStatus200 = (req, res) => res.statusCode === 200
+ 
+let cacheSuccesses = cache('5 minutes', onlyStatus200)
 
 const digest = auth.digest({
     realm: 'Bluelinky',
@@ -86,7 +92,7 @@ app.post('/lock', async (req, res) => {
   res.send(response);
 });
 
-app.get('/', async (req, res) => {
+app.get('/', cacheSuccesses, async (req, res) => {
   let response, response2;
   try {
     response = await vehicle.status();
@@ -101,7 +107,7 @@ app.get('/', async (req, res) => {
   res.send(response);
 });
 
-app.get('/location', async (req, res) => {
+app.get('/location', cacheSuccesses, async (req, res) => {
   let response;
   try {
     response = await vehicle.location();
@@ -124,6 +130,7 @@ app.get('/update', async (req, res) => {
       error: e.message
     };
   }
+  apicache.clear();
   res.send(response);
 });
 
