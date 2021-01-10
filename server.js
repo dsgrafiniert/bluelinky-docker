@@ -8,7 +8,7 @@ const winston = require('winston');
 const expressWinston = require('express-winston');
 const winstonLogrotate = require('winston-logrotate');
 var Rotate = require('winston-logrotate').Rotate;
-import apicache from 'apicache'
+var apicache = require('apicache')
 
 let cache = apicache.middleware
 
