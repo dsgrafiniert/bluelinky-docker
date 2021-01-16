@@ -1,3 +1,4 @@
+const compression = require('compression');
 const express = require('express');
 const BlueLinky = require('bluelinky');
 const bodyParser = require('body-parser');
@@ -24,6 +25,7 @@ const digest = auth.digest({
 
 const app = express();
 app.use(authConnect(digest));
+app.use(compression());
 app.use(bodyParser.json());
 app.use(expressWinston.logger({
       transports: [

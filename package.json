@@ -27,7 +27,8 @@
       "http-auth": "^4.1.2",
       "http-auth-connect": "^1.0.4",
       "bluelinky": "^5.2.3",
-      "apicache": "^1.5.3"
+      "apicache": "^1.5.3",
+      "compression": "^1.7.4"
     },
     "husky": {
       "hooks": {
