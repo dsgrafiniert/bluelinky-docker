@@ -134,4 +134,14 @@ app.get('/update', async (req, res) => {
   res.send(response);
 });
 
+// add route to display cache performance (courtesy of @killdash9)
+app.get('/api/cache/performance', (req, res) => {
+  res.json(apicache.getPerformance())
+})
+
+// add route to display cache index
+app.get('/api/cache/index', (req, res) => {
+  res.json(apicache.getIndex())
+})
+
 app.listen(8080, '0.0.0.0');
