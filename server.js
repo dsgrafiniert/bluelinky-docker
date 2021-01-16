@@ -14,7 +14,7 @@ let cache = apicache.middleware
 
 const onlyStatus200 = (req, res) => res.statusCode === 200
  
-let cacheSuccesses = cache('5 minutes', onlyStatus200)
+let cacheSuccesses = cache('15 minutes', onlyStatus200)
 
 const digest = auth.digest({
     realm: 'Bluelinky',
