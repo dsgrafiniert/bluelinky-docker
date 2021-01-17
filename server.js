@@ -11,11 +11,14 @@ const winstonLogrotate = require('winston-logrotate');
 var Rotate = require('winston-logrotate').Rotate;
 var apicache = require('apicache')
 
-let cache = apicache.middleware
+let cache = apicache.options({
+    trackPerformance: true,
+    debug: true
+}).middleware
 
 const onlyStatus200 = (req, res) => res.statusCode === 200
  
-let cacheSuccesses = cache('15 minutes', onlyStatus200)
+let cacheSuccesses = cache('2 hours', onlyStatus200)
 
 const digest = auth.digest({
     realm: 'Bluelinky',
