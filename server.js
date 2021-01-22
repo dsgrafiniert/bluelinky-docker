@@ -103,6 +103,7 @@ app.get('/', cacheSuccesses, async (req, res) => {
     response = await vehicle.status();
     response2 = await vehicle.location();
     response.location = response2; 
+    console.log("updated real data");
   } catch (e) {
     console.log(e);
     response = {
