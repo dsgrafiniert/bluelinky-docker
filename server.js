@@ -52,18 +52,6 @@ let vehicle;
 const middleWare = async (req, res, next) => {
   const ip = req.connection.remoteAddress;
   console.log(req.path, ip);
-
-  const client = new BlueLinky({ 
-    username: config.username, 
-    password: config.password,
-    pin: config.pin,
-    region: config.region
-  });
-
-  client.on('ready', () => {
-    vehicle = client.getVehicle(config.vin);
-    return next();
-  });
 };
 
 app.use(middleWare);
@@ -100,10 +88,21 @@ app.post('/lock', async (req, res) => {
 app.get('/', cacheSuccesses, async (req, res) => {
   let response, response2;
   try {
-    response = await vehicle.status();
-    response2 = await vehicle.location();
-    response.location = response2; 
-    console.log("updated real data");
+      const client = new BlueLinky({ 
+        username: config.username, 
+        password: config.password,
+        pin: config.pin,
+        region: config.region
+      });
+
+      client.on('ready', () => {
+        vehicle = client.getVehicle(config.vin);
+        response = await vehicle.status();
+        response2 = await vehicle.location();
+        response.location = response2; 
+        console.log("updated real data");
+      });
+    
   } catch (e) {
     console.log(e);
     response = {
@@ -116,7 +115,18 @@ app.get('/', cacheSuccesses, async (req, res) => {
 app.get('/location', cacheSuccesses, async (req, res) => {
   let response;
   try {
-    response = await vehicle.location();
+      const client = new BlueLinky({ 
+        username: config.username, 
+        password: config.password,
+        pin: config.pin,
+        region: config.region
+      });
+
+      client.on('ready', () => {
+        vehicle = client.getVehicle(config.vin);
+        response = await vehicle.location();
+
+      });
   } catch (e) {
     console.log(e);
     response = {
@@ -124,20 +134,32 @@ app.get('/location', cacheSuccesses, async (req, res) => {
     };
   }
   res.send(response);
+  
 });
 
 app.get('/update', async (req, res) => {
   let response;
   try {
-    response = await vehicle.status({refresh: true});
+      const client = new BlueLinky({ 
+        username: config.username, 
+        password: config.password,
+        pin: config.pin,
+        region: config.region
+      });
+
+      client.on('ready', () => {
+        vehicle = client.getVehicle(config.vin);
+        response = await vehicle.status({refresh: true});
+        apicache.clear();
+      });
   } catch (e) {
     console.log(e);
     response = {
       error: e.message
     };
   }
-  apicache.clear();
   res.send(response);
+
 });
 
 // add route to display cache performance (courtesy of @killdash9)
