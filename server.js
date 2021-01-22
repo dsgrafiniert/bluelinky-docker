@@ -26,7 +26,21 @@ const digest = auth.digest({
     algorithm:'md5'
 });
 
+const client = new BlueLinky({ 
+  username: config.username, 
+  password: config.password,
+  pin: config.pin,
+  region: config.region
+});
+
+let vehicle;
 const app = express();
+
+client.on('ready', async () => {
+  vehicle = client.getVehicle(config.vin);
+});
+
+
 app.use(authConnect(digest));
 app.use(compression());
 app.use(bodyParser.json());
@@ -47,7 +61,6 @@ app.use(expressWinston.logger({
       ignoreRoute: function (req, res) { return false; } // optional: allows to skip some log messages based on request and/or response
     }));
 
-let vehicle;
 
 const middleWare = async (req, res, next) => {
   const ip = req.connection.remoteAddress;
@@ -89,21 +102,11 @@ app.post('/lock', async (req, res) => {
 app.get('/', cacheSuccesses, async (req, res) => {
   let response, response2;
   try {
-      const client = new BlueLinky({ 
-        username: config.username, 
-        password: config.password,
-        pin: config.pin,
-        region: config.region
-      });
-
-      client.on('ready', async () => {
-        vehicle = client.getVehicle(config.vin);
-        response = await vehicle.status();
-        response2 = await vehicle.location();
-        response.location = response2; 
-        console.log("updated real data");
-      });
-    
+      
+    response = await vehicle.status();
+    response2 = await vehicle.location();
+    response.location = response2; 
+      console.log("updated real data");
   } catch (e) {
     console.log(e);
     response = {
