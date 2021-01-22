@@ -95,7 +95,7 @@ app.get('/', cacheSuccesses, async (req, res) => {
         region: config.region
       });
 
-      client.on('ready', () => {
+      client.on('ready', async () => {
         vehicle = client.getVehicle(config.vin);
         response = await vehicle.status();
         response2 = await vehicle.location();
@@ -122,7 +122,7 @@ app.get('/location', cacheSuccesses, async (req, res) => {
         region: config.region
       });
 
-      client.on('ready', () => {
+      client.on('ready', async () => {
         vehicle = client.getVehicle(config.vin);
         response = await vehicle.location();
 
@@ -147,7 +147,7 @@ app.get('/update', async (req, res) => {
         region: config.region
       });
 
-      client.on('ready', () => {
+      client.on('ready', async () => {
         vehicle = client.getVehicle(config.vin);
         response = await vehicle.status({refresh: true});
         apicache.clear();
