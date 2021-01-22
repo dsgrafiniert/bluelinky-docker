@@ -9,4 +9,5 @@ COPY config.json.example ./
 COPY server.js ./
 
 EXPOSE 8080
-CMD [ "NODE_ENV=production", "node", "server.js" ]
+ENV NODE_ENV=production
+CMD ["node", "server.js" ]
