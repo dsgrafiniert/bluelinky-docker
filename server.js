@@ -52,6 +52,7 @@ let vehicle;
 const middleWare = async (req, res, next) => {
   const ip = req.connection.remoteAddress;
   console.log(req.path, ip);
+  return next();
 };
 
 app.use(middleWare);
